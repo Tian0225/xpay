@@ -5,11 +5,11 @@
   WORKDIR /app                                                                                        
                                                                                                       
   # 复制 pom.xml 并下载依赖（利用 Docker 缓存）                                                       
-  COPY pom.xml .                                                                                      
+  COPY xpay-code/pom.xml .                                                                            
   RUN mvn dependency:go-offline -B                                                                    
                                                                                                       
   # 复制源码                                                                                          
-  COPY src ./src                                                                                      
+  COPY xpay-code/src ./src                                                                            
                                                                                                       
   # 构建项目                                                                                          
   RUN mvn clean package -DskipTests -B                                                                
@@ -30,4 +30,4 @@
   ENV TZ=Asia/Shanghai                                                                                
                                                                                                       
   # 启动应用                                                                                          
-  ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"] 
+  ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]   
